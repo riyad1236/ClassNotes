@@ -1,0 +1,62 @@
+SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+14-DEC-17                                                                       
+
+SQL> desc customer;
+ERROR:
+ORA-04043: object customer does not exist 
+
+
+SQL> desc product
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODNO                                    NOT NULL NUMBER(38)
+ PRODDESC                                           VARCHAR2(40)
+ PRODQTY                                            NUMBER(38)
+ PRODPRICE                                          NUMBER(7,2)
+
+SQL> select table_name,owner from all_tables where
+  2  upper(table_name) like '%CUSTOMER%';
+
+TABLE_NAME                     OWNER                                            
+------------------------------ ------------------------------                   
+CUSTOMERS                      SH                                               
+CUSTOMERS                      OE                                               
+
+SQL> 
+SQL> select * from product;
+
+    PRODNO PRODDESC                                    PRODQTY  PRODPRICE       
+---------- ---------------------------------------- ---------- ----------       
+         1 Computer                                         20       1000       
+         2 Printer                                         200        100       
+         3 CD                                            20000         10       
+
+SQL> select * from product fetch first 5 rows only;
+select * from product fetch first 5 rows only
+                            *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select * from product  where rownum < 6;
+
+    PRODNO PRODDESC                                    PRODQTY  PRODPRICE       
+---------- ---------------------------------------- ---------- ----------       
+         1 Computer                                         20       1000       
+         2 Printer                                         200        100       
+         3 CD                                            20000         10       
+
+SQL> select * from v$version;
+
+BANNER                                                                          
+--------------------------------------------------------------------------------
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production    
+PL/SQL Release 11.2.0.1.0 - Production                                          
+CORE	11.2.0.1.0	Production                                                      
+TNS for 64-bit Windows: Version 11.2.0.1.0 - Production                         
+NLSRTL Version 11.2.0.1.0 - Production                                          
+
+SQL> spool off
